@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sample HTML Page</title>
+  <style>
+    :root{
+      --bg: #0f111a;
+      --card: #1a1f2a;
+      --text: #e6e6e6;
+      --muted: #b5b5b5;
+      --accent: #4e8cff;
+      --card-radius: 12px;
+      --gap: 1.25rem;
+    }
+
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; background: var(--bg); color: var(--text); font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans"; }
+    a { color: var(--accent); text-decoration: none; }
+    header, footer { padding: 1rem 1.5rem; }
+
+    /* Layout */
+    .container { max-width: 1024px; margin: 0 auto; padding: 0 1rem; }
+    nav ul { list-style: none; padding: 0; margin: 0; display: flex; gap: 1rem; align-items: center; }
+    nav a { color: var(--text); padding: .5rem 0.75rem; border-radius: 6px; }
+    nav a:hover { background: rgba(255,255,255,.08); }
+
+    main { padding: 2rem 0; }
+
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: var(--gap); }
+
+    .card {
+      background: linear-gradient(#1e2230, #141a28);
+      border-radius: var(--card-radius);
+      padding: 1rem;
+      box-shadow: 0 6px 20px rgba(0,0,0,.25);
+    }
+    .card h3 { margin-top: 0; font-size: 1.2rem; }
+    .badge { display:inline-block; padding: .25rem .5rem; border-radius: 999px; background: rgba(78,140,255,.25); color: #cfe0ff; font-size: .75rem; }
+
+    footer { color: var(--muted); font-size: .9rem; text-align: center; padding: 2rem 0; }
+
+    @media (max-width: 600px) {
+      nav ul { flex-wrap: wrap; gap: .5rem; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container" role="navigation" aria-label="Main">
+      <div style="display:flex; justify-content:space-between; align-items:center;">
+        <div style="display:flex; align-items:center; gap:.75rem;">
+          <span aria-label="logo" style="width:28px; height:28px; background:var(--accent); display:inline-block; border-radius:6px;"></span>
+          <strong>My Website</strong>
+        </div>
+        <nav aria-label="Primary">
+          <ul>
+            <li><a href="#home" aria-label="Home">Home</a></li>
+            <li><a href="#features" aria-label="Features">Features</a></li>
+            <li><a href="#about" aria-label="About">About</a></li>
+            <li><a href="#contact" aria-label="Contact">Contact</a></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main id="home" aria-label="Main content">
+    <section class="container">
+      <h1>Welcome to Your HTML Page</h1>
+      <p style="color:var(--muted); max-width: 700px;">
+        This is a simple, responsive HTML5 template you can customize. It includes a header, navigation, a responsive grid of cards, and a footer.
+      </p>
+
+      <div class="grid" aria-label="Feature cards">
+        <article class="card" aria-label="Feature 1">
+          <span class="badge" aria-label="New">New</span>
+          <h3>Feature One</h3>
+          <p style="color:#d7d7d7;">
+            A concise description of the first feature. Easily adapt this to your needs.
+          </p>
+          <a href="#" aria-label="Learn more about Feature One">Learn more →</a>
+        </article>
+
+        <article class="card" aria-label="Feature 2">
+          <span class="badge" aria-label="Updated">Updated</span>
+          <h3>Feature Two</h3>
+          <p style="color:#d7d7d7;">
+            Details about the second feature. Cards adapt to different screen sizes.
+          </p>
+          <a href="#" aria-label="Learn more about Feature Two">Learn more →</a>
+        </article>
+
+        <article class="card" aria-label="Feature 3">
+          <span class="badge" aria-label="Beta">Beta</span>
+          <h3>Feature Three</h3>
+          <p style="color:#d7d7d7;">
+            Third feature description with placeholder content. Replace with real data.
+          </p>
+          <a href="#" aria-label="Learn more about Feature Three">Learn more →</a>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <section id="features" aria-label="Additional features" class="container" style="padding-top:0;">
+    <h2>Why this template?</h2>
+    <p style="color:var(--muted); max-width: 700px;">
+      - Simple, responsive grid layout
+      - Accessible landmarks and aria labels
+      - Lightweight CSS with a modern look
+    </p>
+  </section>
+
+  <footer aria-label="Site footer">
+    <div class="container">
+      © 2025 Your Name. All rights reserved.
+    </div>
+  </footer>
+</body>
+</html>
