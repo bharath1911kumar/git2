@@ -1,16 +1,20 @@
 pipeline {
-    agent any
+    agent { label 'Slave' }
 
     parameters {
-        booleanParam(name: 'SKIP_TEST', defaultValue: false, description: 'Skip the Test stage?')
-        booleanParam(name: 'SKIP_DEPLOY', defaultValue: false, description: 'Skip the Deploy stage?')
+        booleanParam(name: 'SKIP_TEST', defaultValue: false, description: 'Skip the test stage')
     }
 
     stages {
+        stage('Hello') {
+            steps {
+                echo 'Hello World'
+            }
+        }
+
         stage('Build') {
             steps {
-                echo "Building project (static HTML site)..."
-                sh 'ls -l'
+                echo 'Build Stage'
             }
         }
 
@@ -19,37 +23,44 @@ pipeline {
                 expression { return !params.SKIP_TEST }
             }
             steps {
-                echo "Running HTML validation..."
-                sh '''
-                if command -v tidy >/dev/null 2>&1; then
-                    tidy -errors *.html || true
-                else
-                    echo "tidy not installed, skipping HTML validation"
-                fi
-                '''
+                echo 'Test Stage'
+            }
+        }
+
+        stage('Staging') {
+            steps {
+                echo 'Staging Stage'
             }
         }
 
         stage('Deploy') {
-            when {
-                expression { return !params.SKIP_DEPLOY }
-            }
             steps {
-                echo "Deploying to web server..."
-                sh '''
-                sudo cp -r * /var/www/html/
-                sudo systemctl restart apache2
-                '''
+                echo 'Deploy Stage'
+            }
+        }
+
+        stage('Post Deploy') {
+            steps {
+                echo 'Post Deployment Stage'
+            }
+        }
+
+        stage('Prod') {
+            steps {
+                echo 'Prod Stage'
             }
         }
     }
 
     post {
+        always {
+            echo "Build finished"
+        }
         success {
-            echo "Pipeline finished successfully ✅"
+            echo "Build completed successfully!"
         }
         failure {
-            echo "Pipeline failed ❌"
+            echo "Build failed!"
         }
     }
 }
