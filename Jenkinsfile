@@ -1,18 +1,25 @@
 pipeline {
     agent any
 
+    parameters {
+        booleanParam(name: 'SKIP_TEST', defaultValue: false, description: 'Skip the Test stage?')
+        booleanParam(name: 'SKIP_DEPLOY', defaultValue: false, description: 'Skip the Deploy stage?')
+    }
+
     stages {
         stage('Build') {
             steps {
                 echo "Building project (static HTML site)..."
-                sh 'ls -l'   // lists files to confirm checkout
+                sh 'ls -l'
             }
         }
 
         stage('Test') {
+            when {
+                expression { return !params.SKIP_TEST }
+            }
             steps {
                 echo "Running HTML validation..."
-                // Example: using tidy to validate HTML
                 sh '''
                 if command -v tidy >/dev/null 2>&1; then
                     tidy -errors *.html || true
@@ -24,9 +31,11 @@ pipeline {
         }
 
         stage('Deploy') {
+            when {
+                expression { return !params.SKIP_DEPLOY }
+            }
             steps {
                 echo "Deploying to web server..."
-                // Example: copy files to Apache web root
                 sh '''
                 sudo cp -r * /var/www/html/
                 sudo systemctl restart apache2
